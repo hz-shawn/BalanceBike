@@ -35,6 +35,7 @@
         UITextField *txtName = [alert textFieldAtIndex:0];
 //        txtName.keyboardType = UIKeyboardTypeASCIICapable;
         
+        
         NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
         if (machineName) {
             txtName.text = [machineName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
