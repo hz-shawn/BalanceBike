@@ -78,9 +78,9 @@
   
    NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
     if (machineName) {
-        self.title = [machineName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; 
+        self.title = machineName ;
     }else{
-         self.title =  [self.peripheral.name stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        self.title =  self.peripheral.name;
     }
    
     [self setupUI];

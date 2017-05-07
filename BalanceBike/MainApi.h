@@ -25,7 +25,7 @@
 +(void)setAlertModelInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic DengGuanBao:(int)value;//查询AlertModel
 
 
-+(void)setMachineNameInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic name:(NSString *)name;//设置蓝牙名称
++(void)setMachineNameInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic name:(NSData *)nameData;//设置蓝牙名称
 
 +(void)getPWDInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic;//查询密码
 +(void)setpwdInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic pwd:(NSString *)pwd;//设置蓝牙名称
