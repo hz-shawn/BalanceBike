@@ -64,6 +64,7 @@
 		22C0B5501EAC5B52003ACD60 /* JiantouView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C0B54F1EAC5B52003ACD60 /* JiantouView.m */; };
 		22E5E2721E864FC000F42CC3 /* BBLightInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E5E2711E864FC000F42CC3 /* BBLightInfo.m */; };
 		22E5E2751E86631900F42CC3 /* BBLightFenWeiSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E5E2741E86631900F42CC3 /* BBLightFenWeiSettingVC.m */; };
+		FC00D4471EBAE9AD00225954 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FC00D4461EBAE9AD00225954 /* MBProgressHUD.m */; };
 		FC6F7ED51E94A70D007FC753 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6F7ED41E94A70D007FC753 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +181,9 @@
 		22E5E2711E864FC000F42CC3 /* BBLightInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLightInfo.m; sourceTree = "<group>"; };
 		22E5E2731E86631900F42CC3 /* BBLightFenWeiSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLightFenWeiSettingVC.h; sourceTree = "<group>"; };
 		22E5E2741E86631900F42CC3 /* BBLightFenWeiSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLightFenWeiSettingVC.m; sourceTree = "<group>"; };
+		FC00D4441EBAE9AD00225954 /* MBProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		FC00D4451EBAE9AD00225954 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		FC00D4461EBAE9AD00225954 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		FC6F7ED31E94A70D007FC753 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = BalanceBike/ViewController.h; sourceTree = SOURCE_ROOT; };
 		FC6F7ED41E94A70D007FC753 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = BalanceBike/ViewController.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -419,6 +423,10 @@
 		229636581E8E88E300FB4522 /* thirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				FC00D4441EBAE9AD00225954 /* MBProgressHUD-Prefix.pch */,
+				FC00D4451EBAE9AD00225954 /* MBProgressHUD.h */,
+				FC00D4461EBAE9AD00225954 /* MBProgressHUD.m */,
+				FC00D4431EBAE99A00225954 /* MBProgressHud */,
 				229636591E8E88FC00FB4522 /* SVProgressHUD */,
 			);
 			name = thirdPart;
@@ -547,6 +555,13 @@
 			name = "遥控";
 			sourceTree = "<group>";
 		};
+		FC00D4431EBAE99A00225954 /* MBProgressHud */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MBProgressHud;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -658,6 +673,7 @@
 				2272C2A91E72E60000199DAC /* MainViewModel.m in Sources */,
 				229F713B1E65A22E00B9D66C /* BabySpeaker.m in Sources */,
 				2257C0951E7ABE6C0045E089 /* BBBasicTableViewController.m in Sources */,
+				FC00D4471EBAE9AD00225954 /* MBProgressHUD.m in Sources */,
 				226D3C2C1E7978B00042C384 /* BBSensorSettingVC.m in Sources */,
 				2257C0981E7ABE940045E089 /* BBBasicViewController.m in Sources */,
 				22459FA91E82C5AE00D3DB27 /* IndicatorView.m in Sources */,

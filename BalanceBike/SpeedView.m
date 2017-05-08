@@ -150,7 +150,7 @@
     self.powerLayer.strokeEnd = _power;
     self.powerLabel.text = [NSString stringWithFormat:@"%d%%", (int)(_power*100)];
     if (isMi) {
-        self.danweiLabel.text = @"Mi/h";
+        self.danweiLabel.text = @"mph";
     }else{
         self.danweiLabel.text = @"Km/h";
     }
@@ -159,7 +159,7 @@
 -(void)setTotalKm:(CGFloat)totalKm{
     _totalKm = totalKm;
     if (isMi) {
-         self.totalKMLabel.text = [NSString stringWithFormat:@"本次里程 %.1fMi",toMi(totalKm)];
+         self.totalKMLabel.text = [NSString stringWithFormat:@"本次里程 %.1fmI",toMi(totalKm)];
     }else{
          self.totalKMLabel.text = [NSString stringWithFormat:@"本次里程 %.1fkm",totalKm];
     }

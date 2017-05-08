@@ -34,13 +34,13 @@
 -(void)getMainInfo:(NSNotification *)notification{
     MainViewModel *model = (MainViewModel *)notification.object;
     if(isMi){
-        self.currentSpeed.text = [NSString stringWithFormat:@"%.1fMi/h", toMi(model.KMH2 * 0.001) ];
-        self.avgSpeed.text = [NSString stringWithFormat:@"%.1fMi/h",toMi(model.PJSpeed1 * 0.001)];
-        self.totalKM.text =  [NSString stringWithFormat:@"%.1fMi",toMi(model.KMTotal2 * 0.01)];
-        self.thisKM.text =  [NSString stringWithFormat:@"%.1fMi",toMi(model.KMS * 0.01)];
+        self.currentSpeed.text = [NSString stringWithFormat:@"%.1fmph", toMi(model.KMH2 * 0.001) ];
+        self.avgSpeed.text = [NSString stringWithFormat:@"%.1fmph",toMi(model.PJSpeed1 * 0.001)];
+        self.totalKM.text =  [NSString stringWithFormat:@"%.1fmI",toMi(model.KMTotal2 * 0.01)];
+        self.thisKM.text =  [NSString stringWithFormat:@"%.1fmI",toMi(model.KMS * 0.01)];
         self.thisTime.text = [NSString stringWithFormat:@"%02d:%02d:%02d",model.SigRunTime2/3600,(model.SigRunTime2%3600)/60,model.SigRunTime2%60];
         self.tempreture.text = [NSString stringWithFormat:@"%.1f℃",model.Temperature2 * 0.1];
-        self.highSpeed.text = [NSString stringWithFormat:@"%.1fMi/h",toMi(model.MaxAbsKMH * 0.001)];
+        self.highSpeed.text = [NSString stringWithFormat:@"%.1fmph",toMi(model.MaxAbsKMH * 0.001)];
     }else{
         self.currentSpeed.text = [NSString stringWithFormat:@"%.1fKm/h",model.KMH2 * 0.001];
         self.avgSpeed.text = [NSString stringWithFormat:@"%.1fKm/h",model.PJSpeed1 * 0.001];

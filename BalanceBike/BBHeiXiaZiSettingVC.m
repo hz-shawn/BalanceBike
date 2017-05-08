@@ -8,12 +8,13 @@
 
 #import "BBHeiXiaZiSettingVC.h"
 #import "BBHeiXiaZiCell.h"
-
+#import "MBProgressHUD.h"
 @interface BBHeiXiaZiSettingVC () <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *HXZList;
 @property (assign,nonatomic) int begin;
 @property (assign,nonatomic) BOOL flag;
+@property (weak,nonatomic) UIView *keywindow;
 @end
 
 @implementation BBHeiXiaZiSettingVC
@@ -21,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.keywindow = [[UIApplication sharedApplication] keyWindow];
     self.tableView.delegate = self;
     self.tableView.dataSource =self;
     [self.tableView registerNib:[UINib nibWithNibName:@"BBHeiXiaZiCell" bundle:nil] forCellReuseIdentifier:@"cell"];
@@ -50,7 +51,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
+//    [SVProgressHUD dismiss];
+//    [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
 //    [MainApi jiesuo:self.peripheral writeCharacteristic:self.writeCharacteristic];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -102,11 +104,13 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
         [MainApi suoche:self.peripheral writeCharacteristic:self.writeCharacteristic];
-        [SVProgressHUD show];
+//        [SVProgressHUD show];
+        
+        [MBProgressHUD showHUDAddedTo:self.keywindow animated:YES];
         [self performSelector:@selector(getHeiXiaZiInfo) withObject:nil afterDelay:1];
     }
     if (alertView.tag == 200) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUDForView:self.keywindow animated:YES];
         if (buttonIndex == 1) {
             [MainApi jiesuo:self.peripheral writeCharacteristic:self.writeCharacteristic ];
         }

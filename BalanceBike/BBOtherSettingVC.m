@@ -82,7 +82,7 @@
 }
 
 - (IBAction)danweiChange:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:self.danweiSwitch.on forKey:@"Mi"];
+    [[NSUserDefaults standardUserDefaults] setBool:self.danweiSwitch.on forKey:@"mI"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     

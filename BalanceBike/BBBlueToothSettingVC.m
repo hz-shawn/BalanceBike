@@ -100,11 +100,11 @@
         [txtName resignFirstResponder];
         NSString *utf8Str = [txtName.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-            [MainApi setMachineNameInfo:self.peripheral writeCharacteristic:self.writeCharacteristic name:utf8Str];
+        [MainApi setMachineNameInfo:self.peripheral writeCharacteristic:self.writeCharacteristic name:utf8Str];
         [[NSUserDefaults standardUserDefaults] setObject:utf8Str forKey:@"machineName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        [self.baby cancelAllPeripheralsConnection];
+ 
         
     }
      

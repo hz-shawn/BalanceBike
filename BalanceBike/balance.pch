@@ -20,7 +20,7 @@
 #import "UIColor+BB.h"
 #import "SVProgressHUD.h"
 
-#define  isMi  [[NSUserDefaults standardUserDefaults] boolForKey:@"Mi"]
+#define  isMi  [[NSUserDefaults standardUserDefaults] boolForKey:@"mI"]
 
 #define  toMi(x)  ((x)*0.6213712)
 #endif /* balance_pch */

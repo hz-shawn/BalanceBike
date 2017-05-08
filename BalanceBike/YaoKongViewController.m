@@ -173,7 +173,7 @@
 
 - (IBAction)sliderValueChange:(id)sender {
     if (isMi) {
-        self.maxSpeedLabel.text = [NSString stringWithFormat:@"%.1fMi/h",toMi(self.speedSlider.value)];
+        self.maxSpeedLabel.text = [NSString stringWithFormat:@"%.1fmph",toMi(self.speedSlider.value)];
     }else{
         self.maxSpeedLabel.text = [NSString stringWithFormat:@"%.1fKm/h",self.speedSlider.value];
     }
@@ -188,7 +188,7 @@
     _speed = speed;
     if (speed) {
         if (isMi) {
-            self.maxSpeedLabel.text =  [NSString stringWithFormat:@"%.1fMi/h",toMi(speed.speed)];
+            self.maxSpeedLabel.text =  [NSString stringWithFormat:@"%.1fmph",toMi(speed.speed)];
         }else{
             self.maxSpeedLabel.text =  [NSString stringWithFormat:@"%.1fKm/h",speed.speed];
         }
@@ -204,7 +204,7 @@
         //设置速度
         if (isMi) {
             self.speedLabel.text = [NSString stringWithFormat:@"%.1f",toMi(info.KMH2 * 0.001)];
-            self.danweiLabel.text = @"Mi/h";
+            self.danweiLabel.text = @"mph";
         }else{
             self.speedLabel.text = [NSString stringWithFormat:@"%.1f",info.KMH2 * 0.001];
             self.danweiLabel.text = @"Km/h";
@@ -219,7 +219,7 @@
     if (viewModel) {
         if (isMi) {
              self.speedLabel.text = [NSString stringWithFormat:@"%.1f ",toMi(viewModel.KMH2 * 0.001)];
-            self.danweiLabel.text = @"Mi/h";
+            self.danweiLabel.text = @"mph";
         }else{
              self.speedLabel.text = [NSString stringWithFormat:@"%.1f ",viewModel.KMH2 * 0.001];
             self.danweiLabel.text = @"Km/h";

@@ -54,11 +54,11 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             //回调或者说是通知主线程刷新，
             if (isMi) {
-                self.thisKMLabel.text =  [NSString stringWithFormat:@"%.1fMi",toMi(ceil(viewModel.KMS * 0.1) *0.1) ];
-                self.leftKMLabel.text = [NSString stringWithFormat:@"%dMi",(int)toMi(viewModel.ShengYuDianLiangBaiFenBi2 * 0.2)];
-                self.avgSpeedLabel.text = [NSString stringWithFormat:@"%.1fMi/h",toMi(viewModel.PJSpeed1 * 0.001)];
+                self.thisKMLabel.text =  [NSString stringWithFormat:@"%.1fmI",toMi(ceil(viewModel.KMS * 0.1) *0.1) ];
+                self.leftKMLabel.text = [NSString stringWithFormat:@"%dmI",(int)toMi(viewModel.ShengYuDianLiangBaiFenBi2 * 0.2)];
+                self.avgSpeedLabel.text = [NSString stringWithFormat:@"%.1fmph",toMi(viewModel.PJSpeed1 * 0.001)];
                 self.currentSpeedLabel.text =[NSString stringWithFormat:@"%.1f ",toMi(viewModel.KMH2 * 0.001)];
-                self.danweiLabel.text = @"Mi/h";
+                self.danweiLabel.text = @"mph";
             }else{
                 self.thisKMLabel.text =  [NSString stringWithFormat:@"%.1fKm",ceil(viewModel.KMS * 0.1) *0.1];
                 self.leftKMLabel.text = [NSString stringWithFormat:@"%dKm",(int)(viewModel.ShengYuDianLiangBaiFenBi2 * 0.2)];
