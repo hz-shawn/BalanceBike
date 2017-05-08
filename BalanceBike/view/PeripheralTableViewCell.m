@@ -37,7 +37,7 @@
         if(self.oldmachineName && self.machineName && [name isEqualToString:self.oldmachineName]){
             name = self.machineName;
         }  
-        self.machineNameLabel.text = peripheral.name.length > 0 ?  [name stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]: @"UNKnow Name";
+        self.machineNameLabel.text = peripheral.name.length > 0 ? name: @"UNKnow Name";
     }
     
 }

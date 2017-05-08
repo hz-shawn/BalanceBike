@@ -13,6 +13,7 @@
 +(void)getSystemInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic{
     Byte byte[] = {0x55, 0xAA, 0x03 , 0x0A , 0x01 , 0x10 , 0x1E , 0xC3 , 0xFF};
     NSData *data = [NSData dataWithBytes:&byte length:sizeof(byte)];
+    
     [peripheral writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
@@ -144,34 +145,49 @@
     NSData *data = [NSData dataWithBytes:&byte length:sizeof(byte)];
     [peripheral writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
-+(void)setMachineNameInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic name:(NSString *)name{
-    int  first = (int)name.length + 2;
-    const char *s = [name UTF8String];
-    int sum = first +  0x0A + 0x50 + 0x00 ;
-    for (int i = 0; i < name.length; i++) {
-        int value = s[i];
-        sum += value;
-    }
-    int unsum = 0xffff ^ sum;
-    int lowCheckBit = (unsum & 0x00ff);
-    int highCheckBit = (unsum & 0xff00) >> 8;
-    
-    Byte byte[6+first];
-    
-    byte[0] = 0x55;
-    byte[1] = 0xAA;
-    byte[2] = first;
-    byte[3] = 0x0A;
-    byte[4] = 0x50;
-    byte[5] = 0x00;
-    for (int i = 0; i < name.length; i++) {
-        int value = s[i];
-        byte[6+i] = value;
-    }
-    byte[6 + name.length] = lowCheckBit;
-    byte[7 + name.length] = highCheckBit;
-    NSData *data = [NSData dataWithBytes:&byte length:sizeof(byte)];
-    [peripheral writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
++(void)setMachineNameInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic name:(NSData *)nameData{
+ 
+        Byte *nameByte = (Byte *)[nameData bytes];
+        
+        int  first = (int)nameData.length + 2;
+        
+        int sum = first +  0x0A + 0x50 + 0x00 ;
+        for (int i = 0; i < nameData.length; i++) {
+            NSLog(@"%d",nameByte[i]);
+            int value = nameByte[i];
+            sum += value;
+        }
+        int unsum = 0xffff ^ sum;
+        int lowCheckBit = (unsum & 0x00ff);
+        int highCheckBit = (unsum & 0xff00) >> 8;
+        NSUInteger size = 6+first;
+        
+        Byte bytes[]  = {0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0, 0,0, 0, 0 , 0 , 0};
+        
+        bytes[0] = 0x55;
+        bytes[1] = 0xAA;
+        bytes[2] = first;
+        bytes[3] = 0x0A;
+        bytes[4] = 0x50;
+        bytes[5] = 0;
+        for (int i = 0; i < nameData.length; i++) {
+            int value = nameByte[i];
+            bytes[6+i] = value;
+        }
+        
+        bytes[6 + nameData.length] = lowCheckBit;
+        bytes[7 + nameData.length] = highCheckBit;
+        
+        for (int i = 0 ; i < size; i++) {
+            NSLog(@"%d-----%x",i,bytes[i]);
+        }
+        
+        NSData *data = [NSData dataWithBytes:bytes length:size];
+        
+     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [peripheral writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
+        
+    });
     
 }
 

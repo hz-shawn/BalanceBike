@@ -38,10 +38,10 @@
         
         NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
         if (machineName) {
-            txtName.text = [machineName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            txtName.text = machineName;
         }else{
-             txtName.text =  [self.peripheral.name stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        }  
+            txtName.text =  self.peripheral.name;
+        }
         [alert show];
     }
     if(indexPath.row == 1){
@@ -89,8 +89,8 @@
             return;
         }
         UITextField *txtName = [alertView textFieldAtIndex:0];
-        if (txtName.text.length > 30) {
-            [SVProgressHUD showInfoWithStatus:@"名称不能超过30个字"];
+        if (txtName.text.length > 10) {
+            [SVProgressHUD showInfoWithStatus:@"名称不能超过10个字"];
             return;
         }
         if (txtName.text.length ==0) {
