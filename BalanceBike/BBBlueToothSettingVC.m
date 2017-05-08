@@ -98,10 +98,9 @@
             return;
         } 
         [txtName resignFirstResponder];
-        NSString *utf8Str = [txtName.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        [MainApi setMachineNameInfo:self.peripheral writeCharacteristic:self.writeCharacteristic name:utf8Str];
-        [[NSUserDefaults standardUserDefaults] setObject:utf8Str forKey:@"machineName"];
+        NSData *data = [txtName.text dataUsingEncoding:NSUTF8StringEncoding];
+        [MainApi setMachineNameInfo:self.peripheral writeCharacteristic:self.writeCharacteristic name:data];
+        [[NSUserDefaults standardUserDefaults] setObject:txtName.text forKey:@"machineName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
  
