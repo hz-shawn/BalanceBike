@@ -647,43 +647,43 @@
 
 -(NSTimer *)mainViewModelTimer{
     if (!_mainViewModelTimer) {
-        _mainViewModelTimer = [NSTimer scheduledTimerWithTimeInterval:0.52 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            //如果断开连接了 这里就什么都不做
-        
-            if(self.peripheral){
-                if (self.writeCharacteristic) {
-                     [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
-                } 
-            }else{
-                [_mainViewModelTimer invalidate];
-                _mainViewModelTimer = nil;
-            }
-        }];
-        
+        _mainViewModelTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(mainTimerLoop) userInfo:nil repeats:YES];
     }
     return _mainViewModelTimer;
 }
 
+-(void)mainTimerLoop{
+    if(self.peripheral){
+        if (self.writeCharacteristic) {
+            [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+        }
+    }else{
+        [_mainViewModelTimer invalidate];
+        _mainViewModelTimer = nil;
+    }
+}
+
 -(NSTimer *)systemInfoTimer{
     if (!_systemInfoTimer) {
-        _systemInfoTimer = [NSTimer scheduledTimerWithTimeInterval:0.52 repeats:YES block:^(NSTimer * _Nonnull timer) {
-             self.currentCount = self.currentCount + 1;
-            if (self.peripheral) {
-                if (self.writeCharacteristic) {
-                    [MainApi getSystemInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
-                }
-                
-            }else{
-                [_systemInfoTimer isValid];
-                _systemInfoTimer = nil;
-            }
-           
-        }];
-        
+        _systemInfoTimer = [NSTimer scheduledTimerWithTimeInterval:0.12 target:self selector:@selector(systemTimerLoop) userInfo:nil repeats:YES];
     }
     return _systemInfoTimer;
 }
 
+
+-(void)systemTimerLoop{
+     self.currentCount = self.currentCount + 1;
+    if (self.peripheral) {
+        if (self.writeCharacteristic) {
+            [MainApi getSystemInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+        }
+        
+    }else{
+        [_systemInfoTimer isValid];
+        _systemInfoTimer = nil;
+    }
+
+}
 
 -(void)setCurrentCount:(NSInteger)currentCount{
     _currentCount = currentCount;

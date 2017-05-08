@@ -61,19 +61,23 @@
 
 -(NSTimer *)mainViewModelTimer{
     if (!_mainViewModelTimer) {
-        _mainViewModelTimer = [NSTimer scheduledTimerWithTimeInterval:0.52 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            //如果断开连接了 这里就什么都不做
-            if(self.peripheral){
-                
-                [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
-            }else{
-                [_mainViewModelTimer invalidate];
-                _mainViewModelTimer = nil;
-            }
-        }];
-        
+        _mainViewModelTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(mainTimerLoop) userInfo:nil repeats:YES];
     }
     return _mainViewModelTimer;
 }
+
+
+
+-(void)mainTimerLoop{
+    //如果断开连接了 这里就什么都不做
+    if(self.peripheral){
+        
+        [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+    }else{
+        [_mainViewModelTimer invalidate];
+        _mainViewModelTimer = nil;
+    }
+}
+
 
 @end

@@ -195,12 +195,15 @@
         [_timer invalidate];
         _timer = nil;
     }
-    _timer = [NSTimer scheduledTimerWithTimeInterval:kSearchTime repeats:NO block:^(NSTimer * _Nonnull timer) {
-        self.isSearching = false;
-    }];
-    
+    _timer =  [NSTimer scheduledTimerWithTimeInterval:kSearchTime target:self selector:@selector(stopSearch) userInfo:nil repeats:NO];
     return _timer;
 }
+-(void)stopSearch{
+    
+    self.isSearching = false;
+}
+
+
 
 -(NSMutableArray<CBPeripheral *> *)peripherals{
     if (!_peripherals) {

@@ -52,10 +52,13 @@
 
 -(NSTimer *)timer{
         if (!_timer) {
-            _timer = [NSTimer scheduledTimerWithTimeInterval:0.52 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                [MainApi getBatteryInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
-            }];
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(timerLoop) userInfo:nil repeats:YES];
+
         }
         return _timer;
+}
+
+-(void)timerLoop{
+    [MainApi getBatteryInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
 }
 @end

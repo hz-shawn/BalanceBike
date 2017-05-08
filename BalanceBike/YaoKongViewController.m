@@ -234,35 +234,34 @@
 }
 -(NSTimer *)timer{
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.52 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            
-            
-            //            //计算xy
-            CGFloat x = -((self.dian.transform.ty) * 0.01 * self.speed.speed * 1000);
-            CGFloat y = -((self.dian.transform.tx) * 0.01 * self.speed.speed * 500);
-            //设置速速
-            [MainApi setYkSpeed:self.peripheral writeCharacteristic:self.writeCharacteristic x:x y:y];
-            
-        }];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(timerLoop) userInfo:nil repeats:YES];
     }
     return _timer;
 }
 
+-(void)timerLoop{
+    //            //计算xy
+    CGFloat x = -((self.dian.transform.ty) * 0.01 * self.speed.speed * 1000);
+    CGFloat y = -((self.dian.transform.tx) * 0.01 * self.speed.speed * 500);
+    //设置速速
+    [MainApi setYkSpeed:self.peripheral writeCharacteristic:self.writeCharacteristic x:x y:y];
+}
+
 -(NSTimer *)mainViewModelTimer{
     if (!_mainViewModelTimer) {
-        _mainViewModelTimer = [NSTimer scheduledTimerWithTimeInterval:0.52 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            //如果断开连接了 这里就什么都不做
-            if(self.peripheral){
-                
-                [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
-            }else{
-                [_mainViewModelTimer invalidate];
-                _mainViewModelTimer = nil;
-            }
-        }];
-        
+        _mainViewModelTimer =  [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(mainTimerLoop) userInfo:nil repeats:YES];
     }
     return _mainViewModelTimer;
+}
+
+-(void)mainTimerLoop{
+    if(self.peripheral){
+        
+        [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+    }else{
+        [_mainViewModelTimer invalidate];
+        _mainViewModelTimer = nil;
+    }
 }
 
 @end
