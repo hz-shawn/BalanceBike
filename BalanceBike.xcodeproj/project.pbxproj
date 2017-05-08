@@ -593,7 +593,7 @@
 				TargetAttributes = {
 					229F71031E659B2800B9D66C = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 5L8DLLG694;
+						DevelopmentTeam = DZ4E6VB4KX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -807,13 +807,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5L8DLLG694;
+				DEVELOPMENT_TEAM = DZ4E6VB4KX;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BalanceBike/balance.pch";
 				INFOPLIST_FILE = BalanceBike/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.timeWay.robot1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timeWay.robot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -822,13 +822,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5L8DLLG694;
+				DEVELOPMENT_TEAM = DZ4E6VB4KX;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BalanceBike/balance.pch";
 				INFOPLIST_FILE = BalanceBike/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.timeWay.robot1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timeWay.robot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
