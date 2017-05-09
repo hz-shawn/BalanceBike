@@ -11,13 +11,28 @@
 @interface BBBlueToothSettingVC () <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (copy,nonatomic) NSString *name;
+@property (copy,nonatomic) NSString *pwd;
 @end
 
 @implementation BBBlueToothSettingVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getpwdInfo:) name:BBPWDInfoNotification object:nil];
+}
+
+-(void)getpwdInfo:(NSNotification *) notification{
+    
+    BBPwdInfo *model = (BBPwdInfo *)notification.object;
+    NSLog(@"%@",model.pwd);
+    if ([model.pwd isEqualToString:self.pwd]) {
+        [self.baby cancelPeripheralConnection:self.peripheral];
+    }
     
 }
 
@@ -33,15 +48,15 @@
         
         [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
         UITextField *txtName = [alert textFieldAtIndex:0];
-//        txtName.keyboardType = UIKeyboardTypeASCIICapable;
+        //        txtName.keyboardType = UIKeyboardTypeASCIICapable;
         
         
-        NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
-        if (machineName) {
-            txtName.text = machineName;
-        }else{
-            txtName.text =  self.peripheral.name;
-        }
+        //        NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
+        //        if (machineName) {
+        //            txtName.text = machineName;
+        //        }else{
+        txtName.text =  self.peripheral.name;
+        //        }
         [alert show];
     }
     if(indexPath.row == 1){
@@ -52,10 +67,12 @@
         UITextField *txtName = [alert textFieldAtIndex:0];
         txtName.keyboardType = UIKeyboardTypeNumberPad;
         txtName.placeholder = @"请设置6位数字密码";
+        txtName.secureTextEntry = YES;
         
         UITextField *txtpwd = [alert textFieldAtIndex:1];
         txtpwd.keyboardType = UIKeyboardTypeNumberPad;
         txtpwd.placeholder = @"请再次输入密码";
+         txtName.secureTextEntry = NO;
         
         [alert show];
     }
@@ -81,32 +98,36 @@
             [SVProgressHUD showErrorWithStatus:@"两次密码不一致,请重新设置"];
             return;
         }
+        self.pwd = txtpwd.text;
         [MainApi setpwdInfo:self.peripheral writeCharacteristic:self.writeCharacteristic pwd:txtpwd.text];
-        [self.baby cancelAllPeripheralsConnection];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        [MainApi getPWDInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changePwd" object:nil];
     }else{
         if (buttonIndex == 0) {
             return;
         }
         UITextField *txtName = [alertView textFieldAtIndex:0];
-        if (txtName.text.length > 10) {
-            [SVProgressHUD showInfoWithStatus:@"名称不能超过10个字"];
+        NSData *data = [txtName.text dataUsingEncoding:NSUTF8StringEncoding];
+        if (data.length > 30) {
+            [SVProgressHUD showInfoWithStatus:@"名称不能超过30个字节"];
             return;
         }
         if (txtName.text.length ==0) {
             [SVProgressHUD showInfoWithStatus:@"名称不能为空"];
             return;
-        } 
+        }
         [txtName resignFirstResponder];
-        NSData *data = [txtName.text dataUsingEncoding:NSUTF8StringEncoding];
-        [MainApi setMachineNameInfo:self.peripheral writeCharacteristic:self.writeCharacteristic name:data];
-        [[NSUserDefaults standardUserDefaults] setObject:txtName.text forKey:@"machineName"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         
- 
+        [MainApi setMachineNameInfo:self.peripheral writeCharacteristic:self.writeCharacteristic name:data];
+        //        [[NSUserDefaults standardUserDefaults] setObject:txtName.text forKey:@"machineName"];
+        //        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
         
     }
-     
+    
 }
 
 - (BOOL)validate:(NSString *) textString

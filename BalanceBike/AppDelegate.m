@@ -50,7 +50,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [self.baby cancelAllPeripheralsConnection];
+//    [self.baby cancelAllPeripheralsConnection];
+    [self.baby cancelPeripheralConnection:self.peripheral];
 }
 
 

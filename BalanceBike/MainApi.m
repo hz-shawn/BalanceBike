@@ -199,12 +199,15 @@
 }
 
 +(void)setpwdInfo:(CBPeripheral *)peripheral  writeCharacteristic:(CBCharacteristic *)writeCharacteristic pwd:(NSString *)pwd{
-    const char *s = [pwd UTF8String];
+     NSData *pwdData = [pwd dataUsingEncoding:NSUTF8StringEncoding];
+     Byte *s = (Byte *)[pwdData bytes];
+    
     int sum  = 0x08 + 0x0A + 0x03 + 0x17;
     
     for (int i = 0; i < pwd.length; i++) {
         int value = s[i];
         sum += value;
+        NSLog(@"%d--------%d",i,value);
     }
     
     int unsum = 0xffff ^ sum;
@@ -213,7 +216,7 @@
     int highCheckBit = (unsum & 0xff00) >> 8;
     
     
-    Byte byte[14] ;
+    Byte byte[14] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13} ;
     
     byte[0] = 0x55;
     byte[1] = 0xAA;
@@ -231,7 +234,13 @@
     byte[6 + pwd.length] = lowCheckBit;
     byte[7 + pwd.length] = highCheckBit;
     
-    NSData *data = [NSData dataWithBytes:&byte length:sizeof(byte)];
+    for (int i = 0 ; i < 14; i++) {
+        NSLog(@"%d-----%x",i,byte[i]);
+    }
+    
+    NSData *data = [NSData dataWithBytes:&byte length:14];
+    
+    
     [peripheral writeValue:data forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
 }
 

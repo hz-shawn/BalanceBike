@@ -76,12 +76,12 @@
                                                          forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.hidesBackButton =YES;
   
-   NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
-    if (machineName) {
-        self.title = machineName ;
-    }else{
+//   NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
+//    if (machineName) {
+//        self.title = machineName ;
+//    }else{
         self.title =  self.peripheral.name;
-    }
+//    }
    
     [self setupUI];
     [self babyDelegate];
@@ -123,7 +123,11 @@
     [self.contianerView layoutSubviews];
     [SVProgressHUD setMinimumDismissTimeInterval:2];
     
-    
+    [[NSNotificationCenter  defaultCenter] addObserver:self selector:@selector(changePwd) name:@"changePwd" object:nil];
+}
+-(void)changePwd{
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:self.systemInfo.cardId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 //#warning 这里需要注释掉
 -(void)viewWillDisappear:(BOOL)animated{
@@ -137,6 +141,10 @@
     if (self.systemInfo) {
         [self.mainViewModelTimer fire];
     }
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)setupUI{
@@ -176,7 +184,8 @@
 //            [alertView show];
             
             [SVProgressHUD showErrorWithStatus:@"设备连接已断开"];
-            [weakSelf.baby cancelAllPeripheralsConnection];
+//            [weakSelf.baby cancelAllPeripheralsConnection];
+             [weakSelf.baby cancelPeripheralConnection:weakSelf.peripheral];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             
             
@@ -598,9 +607,10 @@
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
-        self.peripheral = nil;
-        [self.baby cancelAllPeripheralsConnection];
+//        [self.baby cancelAllPeripheralsConnection];
+        [self.baby cancelPeripheralConnection:self.peripheral];
         [self.navigationController popToRootViewControllerAnimated:YES];
+        self.peripheral = nil;
         return;
     }
     if (alertView.tag == KxiansuTag) {
@@ -613,7 +623,8 @@
     }
     //设置初始化按钮
     if(buttonIndex == 0){
-        [self.baby cancelAllPeripheralsConnection];
+//        [self.baby cancelAllPeripheralsConnection];
+        [self.baby cancelPeripheralConnection:self.peripheral];
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
@@ -636,7 +647,8 @@
             [self.mainViewModelTimer fire];
         }else{
             [SVProgressHUD showErrorWithStatus:@"密码不正确"];
-            [self.baby cancelAllPeripheralsConnection];
+//            [self.baby cancelAllPeripheralsConnection];
+            [self.baby cancelPeripheralConnection:self.peripheral];
             [self.navigationController popViewControllerAnimated:YES];
             //             [self showSetPwdAlertView:@"密码不正确"];
         }

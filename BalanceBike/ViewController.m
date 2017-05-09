@@ -35,7 +35,8 @@
 //    self.navigationController.navigationBarHidden = YES;
     
     //设置导航栏透明
-    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
+    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     //设置主体颜色
     NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
@@ -64,8 +65,8 @@
     [self.tableView reloadData];
     [self searchBtnClick:nil];
     
-    self.machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
-    self.oldmachineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineOldName"];
+//    self.machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
+//    self.oldmachineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineOldName"];
 }
 -(void)babyDelegate{
     __weak typeof(self) weakSelf = self;
@@ -244,8 +245,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         CBPeripheral * peripheral = self.peripherals[indexPath.row];
     if (peripheral.name.length > 0) {
-        [[NSUserDefaults standardUserDefaults] setObject:peripheral.name forKey:@"machineOldName"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+//        [[NSUserDefaults standardUserDefaults] setObject:peripheral.name forKey:@"machineOldName"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
         [self performSegueWithIdentifier:@"showMainViewController" sender:indexPath];
     }
 }
