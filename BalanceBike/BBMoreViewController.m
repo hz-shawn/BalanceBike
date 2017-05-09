@@ -36,8 +36,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 2) {
         //判断当前的模式 如果不是助理模式 或者待机模式 提示不能读取黑匣子
-        if (self.viewModel.zhanren) {
-            [SVProgressHUD showInfoWithStatus:@"站人的时候不能读取黑匣子信息"];
+        if (self.viewModel.workmode2 != 1) {
+            [SVProgressHUD showInfoWithStatus:@"非助力模式不能读取黑匣子信息"];
         }else{
                 [self performSegueWithIdentifier:@"hxz" sender:nil];
         }
