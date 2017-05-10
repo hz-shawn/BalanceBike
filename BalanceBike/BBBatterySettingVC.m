@@ -45,7 +45,7 @@
     self.DianLiu.text = [NSString stringWithFormat:@"%.2fA",model.DianLiu * 0.01 > 40 ? ( model.DianLiu - 0xffff ) * 0.01 : model.DianLiu * 0.01  ];
     self.DianYa.text  = [NSString stringWithFormat:@"%.1fV",model.DianYa * 0.01];
 //    self.Temprer.text = [NSString stringWithFormat:@"%d℃",(int)((model.Temprer1 + model.Temprer2) * 0.5 - 20)];
-    self.gonglvLabel.text = [NSString stringWithFormat:@"%.1fW",model.DianYa * 0.01 * (model.DianLiu * 0.001 > 40 ? ( model.DianLiu - 0xffff) * 0.001 : model.DianLiu * 0.001)];
+    self.gonglvLabel.text = [NSString stringWithFormat:@"%.1fW",model.DianYa * 0.01 * (model.DianLiu * 0.01 > 40 ? ( model.DianLiu - 0xffff) * 0.01 : model.DianLiu * 0.01)];
     if(isMi){
           self.Temprer.text = [NSString stringWithFormat:@"%d℉",(int)((((model.Temprer1 + model.Temprer2) * 0.5 - 20)) *1.8 + 32)];
     }else{

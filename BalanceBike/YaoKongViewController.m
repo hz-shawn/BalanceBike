@@ -220,13 +220,15 @@
         if (isMi) {
              self.speedLabel.text = [NSString stringWithFormat:@"%.1f ",toMi(viewModel.KMH2 * 0.001)];
             self.danweiLabel.text = @"mph";
+            self.temLabel.text = [NSString stringWithFormat:@"车体温度:%.1f℉",viewModel.Temperature2 * 0.1*1.8 + 32];
         }else{
              self.speedLabel.text = [NSString stringWithFormat:@"%.1f ",viewModel.KMH2 * 0.001];
             self.danweiLabel.text = @"Km/h";
+            self.temLabel.text = [NSString stringWithFormat:@"车体温度:%.1f℃",viewModel.Temperature2 * 0.1];
         }
        
         self.leftPowerLabel.text = [NSString stringWithFormat:@"剩余电量:%d%%",viewModel.ShengYuDianLiangBaiFenBi2];
-        self.temLabel.text = [NSString stringWithFormat:@"车体温度:%.1f℃",viewModel.Temperature2 * 0.1];
+        
         if (viewModel.zhanren || viewModel.lingqi) {
             [SVProgressHUD showInfoWithStatus:@"遥控模式下不能站人或拎起"];
         }
