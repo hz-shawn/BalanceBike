@@ -228,8 +228,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PeripheralTableViewCell *cell = (PeripheralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"PeripheralTableViewCell" forIndexPath:indexPath];
     CBPeripheral * peripheral = self.peripherals[indexPath.row];
-    cell.machineName = self.machineName;
-    cell.oldmachineName = self.oldmachineName;
+ 
+//    cell.oldmachineName = self.oldmachineName;
 //    if ([self.oldmachineName isEqualToString:peripheral.name]) {
 //        [self tableView:tableView didSelectRowAtIndexPath:indexPath];
 //    }

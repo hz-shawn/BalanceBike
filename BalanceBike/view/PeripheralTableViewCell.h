@@ -12,6 +12,5 @@
 @interface PeripheralTableViewCell : UITableViewCell
 
 @property (nonatomic,strong) CBPeripheral *peripheral;
-@property (copy,nonatomic) NSString *machineName;
-@property (copy,nonatomic) NSString *oldmachineName;
+ 
 @end
