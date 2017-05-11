@@ -244,7 +244,8 @@
 -(void)timerLoop{
     //            //计算xy
     CGFloat x = -((self.dian.transform.ty) * 0.01 * self.speed.speed * 1000);
-    CGFloat y = -((self.dian.transform.tx) * 0.01 * self.speed.speed * 500);
+//    CGFloat y = -((self.dian.transform.tx) * 0.01 * self.speed.speed * 500);
+    CGFloat y = -((self.dian.transform.tx) * 0.01 * 5000);
     //设置速速
     [MainApi setYkSpeed:self.peripheral writeCharacteristic:self.writeCharacteristic x:x y:y];
 }
