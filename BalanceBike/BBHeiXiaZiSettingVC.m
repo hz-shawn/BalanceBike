@@ -51,9 +51,9 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [SVProgressHUD dismiss];
-//    [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
-//    [MainApi jiesuo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+ 
+    [MBProgressHUD hideHUDForView:self.keywindow animated:YES];
+ 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
