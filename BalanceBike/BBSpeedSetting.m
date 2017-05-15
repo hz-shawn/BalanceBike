@@ -34,7 +34,7 @@
 
 - (IBAction)changeValue:(id)sender {
     if (isMi) {
-         self.limitSpeedLabel.text  = [NSString stringWithFormat:@"%dmph",(int)toMi(self.slider.value)];
+         self.limitSpeedLabel.text  = [NSString stringWithFormat:@"%.1fmph", toMi(self.slider.value)];
     }else{
          self.limitSpeedLabel.text  = [NSString stringWithFormat:@"%dKm/h",(int)self.slider.value];
     }
@@ -47,7 +47,7 @@
 -(void)getSpeed:(NSNotification *)notification{
     LimitSpeedModel *model = (LimitSpeedModel *)notification.object;
     if (isMi) {
-         self.limitSpeedLabel.text = [NSString stringWithFormat:@"%dmph",(int)toMi(model.XianSuSet/1000)];
+         self.limitSpeedLabel.text = [NSString stringWithFormat:@"%.1fmph",toMi(model.XianSuSet/1000)];
     }else{
          self.limitSpeedLabel.text = [NSString stringWithFormat:@"%dKm/h",(int) model.XianSuSet/1000];
     }
