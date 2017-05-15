@@ -14,5 +14,5 @@
 @property (assign,nonatomic) CGFloat maxSpeed;
 
 @property (assign,nonatomic) CGFloat power;
-@property (assign,nonatomic) CGFloat totalKm;
+@property (assign,nonatomic) CGFloat totalKm;//限速
 @end

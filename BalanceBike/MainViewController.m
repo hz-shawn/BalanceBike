@@ -40,6 +40,7 @@
 @property (strong,nonatomic) CBCharacteristic *writeCharacteristic;
 @property (strong,nonatomic) NSMutableArray *resultArray;
 @property (strong,nonatomic) MainViewModel *mainViewModel;
+@property (strong,nonatomic) LimitSpeedModel *limitSpeedModel;
 @property (weak,nonatomic) MainSubViewController *subVC;
 @property (strong,nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong,nonatomic) BBSystemInfo *systemInfo;//设备信息
@@ -75,17 +76,17 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.hidesBackButton =YES;
-  
-//   NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
-//    if (machineName) {
-//        self.title = machineName ;
-//    }else{
-        self.title =  self.peripheral.name;
-//    }
-   
+    
+    //   NSString * machineName =  [[NSUserDefaults standardUserDefaults] objectForKey:@"machineName"];
+    //    if (machineName) {
+    //        self.title = machineName ;
+    //    }else{
+    self.title =  self.peripheral.name;
+    //    }
+    
     [self setupUI];
     [self babyDelegate];
-//    [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
+    //    [self performSelector:@selector(loadData) withObject:nil afterDelay:2];
     [self loadData];
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     delegate.baby = self.baby;
@@ -153,10 +154,10 @@
     self.statusBtn.layer.masksToBounds = true;
     self.statusBtn.userInteractionEnabled = false;
     //2.初始化子tableView;
-
-  
-  
-  
+    
+    
+    
+    
     //3.限速lable
     self.xiansuLabel.hidden = YES;
     
@@ -179,13 +180,13 @@
     [self.baby setBlockOnDisconnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
         NSLog(@"设备：%@--断开连接",peripheral.name);
         if ([peripheral.name isEqualToString:weakSelf.peripheral.name]) {
-//            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"蓝牙断开连接" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//            alertView.tag = 100;
-//            [alertView show];
+            //            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"蓝牙断开连接" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            //            alertView.tag = 100;
+            //            [alertView show];
             
             [SVProgressHUD showErrorWithStatus:@"设备连接已断开"];
-//            [weakSelf.baby cancelAllPeripheralsConnection];
-             [weakSelf.baby cancelPeripheralConnection:weakSelf.peripheral];
+            //            [weakSelf.baby cancelAllPeripheralsConnection];
+            [weakSelf.baby cancelPeripheralConnection:weakSelf.peripheral];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             
             
@@ -204,7 +205,7 @@
     //        for (CBService *service in peripheral.services) {
     //            NSLog(@"搜索到服务:%@",service.UUID.UUIDString);
     //        }
-    //    }]; 
+    //    }];
     
     [self.baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
         weakSelf.peripheral = nil;
@@ -388,6 +389,7 @@
                                         [[NSNotificationCenter defaultCenter]postNotificationName:MainViewModelNotification object:mainViewModel];
                                     }else if([self.resultArray[2] intValue] == 0x06){
                                         LimitSpeedModel *model = [[LimitSpeedModel alloc]initWith:self.resultArray];
+                                        self.limitSpeedModel = model;
                                         [[NSNotificationCenter defaultCenter]postNotificationName:LimitSpeedModelNotification object:model];
                                     }else if([self.resultArray[2] intValue] == 0x0C){
                                         BBSensorModel *model = [[BBSensorModel alloc]initWith:self.resultArray];
@@ -501,7 +503,11 @@
     }
     
     if(mainViewModel.errCode2 != 0){
-        [SVProgressHUD showInfoWithStatus:@"车辆故障，请及时维修"];
+        //        [SVProgressHUD showInfoWithStatus:@"车辆故障，请及时维修"];
+        [self.statusBtn setTitle:@"   车辆故障，请及时维修  " forState:UIControlStateNormal];
+    }else{
+        [self.statusBtn setTitle:@"   车辆运行正常   " forState:UIControlStateNormal];
+        
     }
     
     
@@ -530,9 +536,16 @@
     self.speedView.maxSpeed = 20;
     self.speedView.speed = mainViewModel.KMH2 * 0.001;
     self.speedView.power = mainViewModel.ShengYuDianLiangBaiFenBi2 * 0.01;
-    self.speedView.totalKm = ceil(mainViewModel.KMS * 0.1) *0.1 ; //四舍五入
+ 
 }
 
+
+-(void)setLimitSpeedModel:(LimitSpeedModel *)limitSpeedModel{
+    
+        _limitSpeedModel = limitSpeedModel;
+        self.speedView.totalKm = limitSpeedModel.XianSuSet * 0.001; //限速值
+    
+}
 
 -(NSMutableArray *)services{
     if (!_services) {
@@ -607,7 +620,7 @@
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
-//        [self.baby cancelAllPeripheralsConnection];
+        //        [self.baby cancelAllPeripheralsConnection];
         [self.baby cancelPeripheralConnection:self.peripheral];
         [self.navigationController popToRootViewControllerAnimated:YES];
         self.peripheral = nil;
@@ -623,7 +636,7 @@
     }
     //设置初始化按钮
     if(buttonIndex == 0){
-//        [self.baby cancelAllPeripheralsConnection];
+        //        [self.baby cancelAllPeripheralsConnection];
         [self.baby cancelPeripheralConnection:self.peripheral];
         [self.navigationController popViewControllerAnimated:YES];
         return;
@@ -647,7 +660,7 @@
             [self.mainViewModelTimer fire];
         }else{
             [SVProgressHUD showErrorWithStatus:@"密码不正确"];
-//            [self.baby cancelAllPeripheralsConnection];
+            //            [self.baby cancelAllPeripheralsConnection];
             [self.baby cancelPeripheralConnection:self.peripheral];
             [self.navigationController popViewControllerAnimated:YES];
             //             [self showSetPwdAlertView:@"密码不正确"];
@@ -668,6 +681,7 @@
     if(self.peripheral){
         if (self.writeCharacteristic) {
             [MainApi getMainInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
+            [MainApi getLimitSpeedInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
         }
     }else{
         [_mainViewModelTimer invalidate];
@@ -684,7 +698,7 @@
 
 
 -(void)systemTimerLoop{
-     self.currentCount = self.currentCount + 1;
+    self.currentCount = self.currentCount + 1;
     if (self.peripheral) {
         if (self.writeCharacteristic) {
             [MainApi getSystemInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
@@ -694,7 +708,7 @@
         [_systemInfoTimer isValid];
         _systemInfoTimer = nil;
     }
-
+    
 }
 
 -(void)setCurrentCount:(NSInteger)currentCount{
@@ -708,7 +722,7 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //判断scrollview滑动 
+    //判断scrollview滑动
     self.speedView.alpha = (200 - scrollView.contentOffset.y )/200 > 0 ?  (200 - scrollView.contentOffset.y )/200 : 0;
     self.statusBtn.alpha = (200 - scrollView.contentOffset.y )/200 > 0 ?  (200 - scrollView.contentOffset.y )/200 : 0;
     self.xiansuLabel.alpha = (200 - scrollView.contentOffset.y )/200 > 0 ?  (200 - scrollView.contentOffset.y )/200 : 0;

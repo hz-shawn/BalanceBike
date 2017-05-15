@@ -30,7 +30,7 @@
     self.begin = 0x0400;
     
     
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"读取黑匣子需要锁车，是否继续？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"读取黑匣子需要锁车，是否继续？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alertView.tag = 100;
     [alertView show];
     
@@ -103,11 +103,15 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100) {
-        [MainApi suoche:self.peripheral writeCharacteristic:self.writeCharacteristic];
-//        [SVProgressHUD show];
-        
-        [MBProgressHUD showHUDAddedTo:self.keywindow animated:YES];
-        [self performSelector:@selector(getHeiXiaZiInfo) withObject:nil afterDelay:1];
+        if(buttonIndex == 0){
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [MainApi suoche:self.peripheral writeCharacteristic:self.writeCharacteristic];
+            
+            [MBProgressHUD showHUDAddedTo:self.keywindow animated:YES];
+            [self performSelector:@selector(getHeiXiaZiInfo) withObject:nil afterDelay:1];
+        }
+   
     }
     if (alertView.tag == 200) {
         [MBProgressHUD hideHUDForView:self.keywindow animated:YES];

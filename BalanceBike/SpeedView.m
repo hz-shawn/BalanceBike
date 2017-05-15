@@ -108,7 +108,7 @@
         
         
         UILabel *totalKM = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, frame.size.width-60, 30)];
-        totalKM.text = @"本次里程 0.0km";
+        totalKM.text = @"限速 4.0";
         totalKM.font = [UIFont systemFontOfSize:12];
         totalKM.textAlignment = NSTextAlignmentCenter;
         totalKM.textColor = [UIColor whiteColor];
@@ -159,9 +159,9 @@
 -(void)setTotalKm:(CGFloat)totalKm{
     _totalKm = totalKm;
     if (isMi) {
-         self.totalKMLabel.text = [NSString stringWithFormat:@"本次里程 %.1fmI",toMi(totalKm)];
+         self.totalKMLabel.text = [NSString stringWithFormat:@"限速 %.1f ",toMi(totalKm)];
     }else{
-         self.totalKMLabel.text = [NSString stringWithFormat:@"本次里程 %.1fkm",totalKm];
+         self.totalKMLabel.text = [NSString stringWithFormat:@"限速 %.1f ",totalKm];
     }
   
 }
