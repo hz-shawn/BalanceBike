@@ -153,7 +153,7 @@
     
     int sum = first +  0x0A + 0x50 + 0x00 ;
     for (int i = 0; i < nameData.length; i++) {
-//        NSLog(@"%d",nameByte[i]);
+        //        NSLog(@"%d",nameByte[i]);
         int value = nameByte[i];
         sum += value;
     }
@@ -178,9 +178,9 @@
     bytes[6 + nameData.length] = lowCheckBit;
     bytes[7 + nameData.length] = highCheckBit;
     
-//    for (int i = 0 ; i < size; i++) {
-//        NSLog(@"bytes:%d-----%x",i,bytes[i]);
-//    }
+    //    for (int i = 0 ; i < size; i++) {
+    //        NSLog(@"bytes:%d-----%x",i,bytes[i]);
+    //    }
     
     if(size <= 20){
         NSData *data = [NSData dataWithBytes:bytes length:size];
@@ -194,12 +194,12 @@
         for (int i = 0 ; i< 20; i++) {
             byte1[i] = bytes[i];
         }
-//        for (int i = 0 ; i < 20; i++) {
-//            NSLog(@"byte1:%d-----%x",i,byte1[i]);
-//        }
+        //        for (int i = 0 ; i < 20; i++) {
+        //            NSLog(@"byte1:%d-----%x",i,byte1[i]);
+        //        }
         
         NSData *data1 = [NSData dataWithBytes:byte1 length:20];
-     
+        
         
         
         Byte byte2[20] = {0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0,0, 0, 0 , 0 , 0};
@@ -207,14 +207,14 @@
             byte2[j] = bytes[j+20];
         }
         
-//        for (int i = 0 ; i < size - 20; i++) {
-//            NSLog(@"byte2:%d-----%x",i,byte2[i]);
-//        }
+        //        for (int i = 0 ; i < size - 20; i++) {
+        //            NSLog(@"byte2:%d-----%x",i,byte2[i]);
+        //        }
         
         NSData *data2 = [NSData dataWithBytes:byte2 length:size - 20];
-     
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             [peripheral writeValue:data1 forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
+            [peripheral writeValue:data1 forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
             [peripheral writeValue:data2 forCharacteristic:writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
             
         });
@@ -238,7 +238,7 @@
     for (int i = 0; i < pwd.length; i++) {
         int value = s[i];
         sum += value;
-//        NSLog(@"%d--------%d",i,value);
+        //        NSLog(@"%d--------%d",i,value);
     }
     
     int unsum = 0xffff ^ sum;
@@ -265,9 +265,9 @@
     byte[6 + pwd.length] = lowCheckBit;
     byte[7 + pwd.length] = highCheckBit;
     
-//    for (int i = 0 ; i < 14; i++) {
-//        NSLog(@"%d-----%x",i,byte[i]);
-//    }
+    //    for (int i = 0 ; i < 14; i++) {
+    //        NSLog(@"%d-----%x",i,byte[i]);
+    //    }
     
     NSData *data = [NSData dataWithBytes:&byte length:14];
     

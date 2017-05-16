@@ -56,13 +56,13 @@
             if (isMi) {
                  self.thisKMLabel.text = [NSString stringWithFormat:@"%.1f℉",viewModel.Temperature2 * 0.1*1.8 + 32];
                 self.leftKMLabel.text = [NSString stringWithFormat:@"%dmI",(int)toMi(viewModel.ShengYuDianLiangBaiFenBi2 * 0.2)];
-                self.avgSpeedLabel.text = [NSString stringWithFormat:@"%.1fmph",toMi(viewModel.PJSpeed1 * 0.001)];
+                self.avgSpeedLabel.text = [NSString stringWithFormat:@"%.1fml",toMi(ceil(viewModel.KMS * 0.1) *0.1)];
                 self.currentSpeedLabel.text =[NSString stringWithFormat:@"%.1f ",toMi(viewModel.KMH2 * 0.001)];
                 self.danweiLabel.text = @"mph";
             }else{
                 self.thisKMLabel.text =  [NSString stringWithFormat:@"%.1f℃",viewModel.Temperature2 * 0.1];
                 self.leftKMLabel.text = [NSString stringWithFormat:@"%dKm",(int)(viewModel.ShengYuDianLiangBaiFenBi2 * 0.2)];
-                self.avgSpeedLabel.text = [NSString stringWithFormat:@"%.1fKm/h",viewModel.PJSpeed1 * 0.001];
+                self.avgSpeedLabel.text = [NSString stringWithFormat:@"%.1fKm",ceil(viewModel.KMS * 0.1) *0.1];
                 self.currentSpeedLabel.text =[NSString stringWithFormat:@"%.1f ",viewModel.KMH2 * 0.001];
                   self.danweiLabel.text = @"Km/h";
             }
