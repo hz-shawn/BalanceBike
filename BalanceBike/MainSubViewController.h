@@ -11,7 +11,8 @@
 
 @interface MainSubViewController : UITableViewController
 
- 
+@property (strong,nonatomic) BabyBluetooth *baby;
+@property (nonatomic,strong) CBPeripheral *peripheral;
 @property (weak, nonatomic) IBOutlet UILabel *thisKMLabel;     //本次里程 改成了车体温度
  
 @property (weak, nonatomic) IBOutlet UILabel *avgSpeedLabel;   //平均速度
@@ -27,5 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *xuansuBtn;
 @property (weak, nonatomic) IBOutlet UIButton *suoBtn;
 @property (weak, nonatomic) IBOutlet UIButton *yaokongBtn;
+
 
 @end
