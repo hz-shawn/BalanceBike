@@ -110,6 +110,8 @@
     
     MainSubViewController *mainVC = (MainSubViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainSubViewController"];
     self.subVC = mainVC;
+    self.subVC.baby = self.baby;
+    self.subVC.peripheral = self.peripheral;
     self.subVC.containerView = self.contianerView;
     [self addChildViewController:mainVC];
     self.subTableView = mainVC.view;
@@ -591,9 +593,10 @@
         self.systemInfoTimer = nil;
         //2.判断是不是设置了密码 没有设置密码则需要设置密码
         if ([systemInfo.defaultBlePsw1 isEqualToString:@"000000"]) {
-            //这时候没有设置密码 则需要设置密码
+            //这时候没有设置密码 进入主界面
             
-            [self showSetPwdAlertView:@"请设置6位初始密码"];
+            [self.mainViewModelTimer fire];
+//            [self showSetPwdAlertView:@"请设置6位初始密码"];
         }else{
             //去本地查找密码
             //如果不对 或者 没有 则需要重新输入
@@ -660,10 +663,10 @@
             [self.mainViewModelTimer fire];
         }else{
             [SVProgressHUD showErrorWithStatus:@"密码不正确"];
-            //            [self.baby cancelAllPeripheralsConnection];
+            
             [self.baby cancelPeripheralConnection:self.peripheral];
             [self.navigationController popViewControllerAnimated:YES];
-            //             [self showSetPwdAlertView:@"密码不正确"];
+            
         }
     }
     
