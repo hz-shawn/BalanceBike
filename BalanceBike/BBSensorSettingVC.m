@@ -35,7 +35,7 @@
     [MainApi getSensorInfo:self.peripheral writeCharacteristic:self.writeCharacteristic];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getSensor:) name:BBSensorModelNotification object:nil];
-    
+
     
 }
 
@@ -82,9 +82,13 @@
     [MainApi setQiXingLinMingDuInfo:self.peripheral writeCharacteristic:self.writeCharacteristic QiXingLinMingDu:self.rideSensorSlider.value];
 }
 - (IBAction)assistChange:(id)sender {
-    self.assistLabel.text = [NSString stringWithFormat:@"%.1f",self.assistSlider.value];
+//    let roundedValue = round(sender.value / step) * step
+//    sender.value = roundedValue
+    CGFloat step = 1;
+    CGFloat roundedValue = round(self.assistSlider.value / step) *step;
+    self.assistLabel.text = [NSString stringWithFormat:@"%.1f",roundedValue];
     //设置值
-    [MainApi setZhuLiPingHengInfo:self.peripheral writeCharacteristic:self.writeCharacteristic ZhuLiPingHeng:self.assistSlider.value *10];
+    [MainApi setZhuLiPingHengInfo:self.peripheral writeCharacteristic:self.writeCharacteristic ZhuLiPingHeng:roundedValue *10];
 }
 //转向灵敏度调节
 - (IBAction)aroundSwitchChange:(id)sender {
