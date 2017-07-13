@@ -101,7 +101,7 @@
     [self.activityIndicatorView startAnimating];
     
     //添加speedView
-    SpeedView *speedView = [[SpeedView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width *0.5 - 100, 50, 200, 200)];
+    SpeedView *speedView = [[SpeedView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width *0.5 - 130, 50, 260, 260)];
     self.speedView = speedView;
     speedView.speed = 0;
     speedView.power = 0;
